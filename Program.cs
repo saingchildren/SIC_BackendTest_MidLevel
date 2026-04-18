@@ -18,7 +18,12 @@ namespace MercuryTest
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                var xmlFilename = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+                options.OperationFilter<MercuryTest.SwaggerFilters.ACPDExampleFilter>();
+            });
             var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
 
             builder.Services.AddDbContext<AppDbContext>(options =>
