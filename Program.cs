@@ -1,6 +1,8 @@
+using System.Data;
 using MercuryTest.Data;
 using MercuryTest.Interfaces;
 using MercuryTest.Services;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace MercuryTest
@@ -18,9 +20,12 @@ namespace MercuryTest
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
+
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(connectionString)
             );
+
+            builder.Services.AddScoped<IDbConnection>(sp => new SqlConnection(connectionString));
 
             builder.Services.AddScoped<IACPDService, ACPDService>();
 
