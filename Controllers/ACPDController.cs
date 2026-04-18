@@ -35,7 +35,7 @@ namespace MercuryTest.Controllers
             try
             {
                 var result = await _aCPDService.READ(sid);
-                return Ok(result);
+                return StatusCode(201, result);
             }
             catch (Exception ex)
             {
