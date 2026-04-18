@@ -26,6 +26,21 @@ namespace MercuryTest.Services
             return json;
         }
 
+        public async Task<string> READ(string sid)
+        {
+            var data = await _appDbContext
+                .MyOffice_ACPD.AsNoTracking()
+                .FirstOrDefaultAsync(x => x.ACPD_SID == sid);
+
+            if (data == null)
+            {
+                return "{}";
+            }
+
+            string json = JsonSerializer.Serialize(data);
+            return json;
+        }
+
         public async Task<bool> Create(MyOffice_ACPD acpd)
         {
             var param = new DynamicParameters();

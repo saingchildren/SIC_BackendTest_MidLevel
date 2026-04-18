@@ -29,6 +29,20 @@ namespace MercuryTest.Controllers
             }
         }
 
+        [HttpGet("{sid}")]
+        public async Task<IActionResult> Get(string sid)
+        {
+            try
+            {
+                var result = await _aCPDService.READ(sid);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] MyOffice_ACPD acpd)
         {
