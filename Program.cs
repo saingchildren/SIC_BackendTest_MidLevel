@@ -28,6 +28,11 @@ namespace MercuryTest
             builder.Services.AddScoped<IDbConnection>(sp => new SqlConnection(connectionString));
 
             builder.Services.AddScoped<IACPDService, ACPDService>();
+            builder.Services.AddControllers(options =>
+            {
+                options.Filters.Add<MercuryTest.ActionFilters.LogActionFilter>();
+            });
+            builder.Services.AddScoped<MercuryTest.ActionFilters.LogActionFilter>();
 
             var app = builder.Build();
 
