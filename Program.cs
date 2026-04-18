@@ -1,3 +1,7 @@
+using MercuryTest.Data;
+using MercuryTest.Interfaces;
+using MercuryTest.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace MercuryTest
 {
@@ -13,6 +17,12 @@ namespace MercuryTest
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(connectionString)
+            );
+
+            builder.Services.AddScoped<IACPDService, ACPDService>();
 
             var app = builder.Build();
 
@@ -26,7 +36,6 @@ namespace MercuryTest
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
