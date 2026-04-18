@@ -72,5 +72,20 @@ namespace MercuryTest.Services
             await _appDbContext.MyOffice_ACPD.AddAsync(acpd);
             return await _appDbContext.SaveChangesAsync() > 0;
         }
+
+        public async Task<bool> Update(string sid, MyOffice_ACPD acpd)
+        {
+            var existingData = await _appDbContext.MyOffice_ACPD.FindAsync(sid);
+
+            if (existingData == null)
+                return false;
+
+            acpd.ACPD_SID = sid; // 防止SID被改變
+            acpd.ACPD_UPDDateTime = DateTime.Now;
+
+            _appDbContext.Entry(existingData).CurrentValues.SetValues(acpd);
+
+            return await _appDbContext.SaveChangesAsync() > 0;
+        }
     }
 }

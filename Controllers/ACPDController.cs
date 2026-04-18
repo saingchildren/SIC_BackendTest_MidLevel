@@ -56,5 +56,19 @@ namespace MercuryTest.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpPut("{sid}")]
+        public async Task<IActionResult> Put(string sid, [FromBody] MyOffice_ACPD acpd)
+        {
+            try
+            {
+                var result = await _aCPDService.Update(sid, acpd);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }
