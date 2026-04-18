@@ -87,5 +87,17 @@ namespace MercuryTest.Services
 
             return await _appDbContext.SaveChangesAsync() > 0;
         }
+
+        public async Task<bool> Delete(string sid)
+        {
+            var existingData = await _appDbContext.MyOffice_ACPD.FindAsync(sid);
+
+            if (existingData == null)
+                return false;
+
+            _appDbContext.MyOffice_ACPD.Remove(existingData);
+
+            return await _appDbContext.SaveChangesAsync() > 0;
+        }
     }
 }

@@ -8,6 +8,6 @@ namespace MercuryTest.Interfaces
         Task<string> READ();
         Task<string> READ(string sid);
         Task<bool> Update(string sid, MyOffice_ACPD acpd);
-        //Task<bool> Delete(string sid);
+        Task<bool> Delete(string sid);
     }
 }
