@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MercuryTest.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/myofficeacpd/[controller]")]
     public class ACPDController : Controller
     {
         private readonly IACPDService _aCPDService;
